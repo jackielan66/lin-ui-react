@@ -2,13 +2,26 @@ import React, { useState } from 'react'
 import logo from './logo.svg'
 import './App.css'
 import Button from './components/Button/Button'
+import SVG from './components/svg/arrow-down-bold.svg'
+import Picker from './components/Picker/index'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <div className="App">
-      <header className="App-header">
+      count is: {count}
+      <Button type="primary" >按钮</Button>
+      <div>
+        <div style={{height:300}} >
+        <Picker onChange={(index)=>{
+setCount(index)
+        }}/>
+        </div>
+    
+      </div>
+
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>Hello Vite + React!</p>
         <p>
@@ -17,6 +30,9 @@ function App() {
           </button>
         </p>
         <p>
+          <iframe src={SVG} >
+
+          </iframe>
          <Button>按钮</Button>
         </p>
         <p>
@@ -38,7 +54,7 @@ function App() {
             Vite Docs
           </a>
         </p>
-      </header>
+      </header> */}
     </div>
   )
 }

@@ -1,0 +1,14 @@
+{
+    // vscode默认启用了根据文件类型自动设置tabsize的选项
+    "editor.detectIndentation": false,
+    // 重新设定tabsize
+    "editor.tabSize": 4,
+    // #每次保存的时候自动格式化 
+    "editor.formatOnSave": true,
+    // //  #让函数(名)和后面的括号之间加个空格
+    // "javascript.format.insertSpaceBeforeFunctionParenthesis": false,
+    // "editor.suggestSelection": "first",
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    } // 两个选择器中是否换行
+}
