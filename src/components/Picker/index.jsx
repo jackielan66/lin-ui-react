@@ -17,8 +17,6 @@ export default class Picker extends React.Component {
     // value: PropTypes.number.isRequired,
   };
 
-
-
   constructor(props){
     super(props)
     this.itemHeight = 44;

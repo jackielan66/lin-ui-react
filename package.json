@@ -2,21 +2,35 @@
   "name": "react",
   "version": "0.0.0",
   "scripts": {
-    "start": "npm run dev",
+    "start": "webpack-dev-server --open --color",
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "svgo": "svgo -f src/components/icon/svg --config=src/components/icon/svgo.yml"
   },
   "dependencies": {
-
+    "@babel/preset-react": "^7.14.5",
     "less": "^4.1.1",
-    "prop-types": "^15.7.2",
+    "less-loader": "7.0.2",
     "react": "^17.0.0",
     "react-dom": "^17.0.0"
   },
   "devDependencies": {
-    "eslint": "^7.32.0",
-    "@vitejs/plugin-react-refresh": "^1.3.1",
-    "vite": "^2.4.4"
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "3.0.0",
+    "css-loader": "4.3.0",
+    "file-loader": "5.1.0",
+    "html-webpack-plugin": "4.5.2",
+    "lodash": "^4.17.21",
+    "prop-types": "^15.7.2",
+    "style-loader": "1.3.0",
+    "svg-sprite-loader": "^6.0.9",
+    "svgo": "^2.5.0",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.11.2",
+    "webpack-merge": "4.2.2"
   }
 }

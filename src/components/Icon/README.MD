@@ -1,15 +1,6 @@
 
 
-|-- Pick组件
-
-
-WEBPACK配干嘛的
-
-## JSX 用什么loader
- jsx 使用babel 来接卸
- babel 是什么
-      插件是干嘛
-      presets 这个配置干嘛的
+|-- ICON 图标
   
 ## SVG
 1 SVG 是xml语言
@@ -22,7 +13,15 @@ svg 是xhtml，也是dom结构的一种
 
 如何 合并svg
 svg 雪碧图
-原理每个svg 都是个symbol ，然后要用的使用use标签
+原理
+每个svg 都是个symbol ，然后要用的使用use标签
+# 原理
+每个svg都有symbol属性
+然后可以通过
+<svg><use xlink:href="#id"> </svg>
+
+# require.context
+
 ```
   使用 <svg><use xlink:href="#id"> </svg>
 ```
