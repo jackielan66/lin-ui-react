@@ -1,6 +1,8 @@
 
 
 |-- ICON 图标
+
+svgo 1.x 版本使用yml配置文件
   
 ## SVG
 1 SVG 是xml语言

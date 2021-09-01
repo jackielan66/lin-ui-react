@@ -1,29 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './Button.less'
+import './Divider.less'
 
 const mapType2ClassName = {
     'primary': 'l-ui-btn-primary'
 }
-function Button(props) {
+function Divider(props) {
     const Type = props.type;
 
 
-    let classList = ["l-ui-btn "]
+    let classList = ["l-ui-divider "]
     if (mapType2ClassName[Type]) {
         classList.push((mapType2ClassName[Type]));
 
     }
 
-
-
-    return <button className={classList.join(" ")} >
+    return <div className={classList.join(" ")} style={props.style} >
         {props.children}
-    </button>
+    </div>
 }
 
-Button.propTypes = {
-    type: PropTypes.string
+Divider.propTypes = {
+    type: PropTypes.string,
+
+
 }
 
-export default Button
+export default Divider

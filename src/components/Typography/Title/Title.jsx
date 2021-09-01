@@ -1,29 +1,24 @@
-import React from 'react';
+import React from 'react'
 import PropTypes from 'prop-types';
-import './Button.less'
+import './Title.less'
 
 const mapType2ClassName = {
     'primary': 'l-ui-btn-primary'
 }
-function Button(props) {
+function Title(props) {
     const Type = props.type;
-
 
     let classList = ["l-ui-btn "]
     if (mapType2ClassName[Type]) {
-        classList.push((mapType2ClassName[Type]));
-
+        classList.push((mapType2ClassName[Type]))
     }
-
-
-
-    return <button className={classList.join(" ")} >
+    return <h1 className="l-ui-typography" >
         {props.children}
-    </button>
+    </h1>
 }
 
-Button.propTypes = {
+Title.propTypes = {
     type: PropTypes.string
 }
 
-export default Button
+export default Title
