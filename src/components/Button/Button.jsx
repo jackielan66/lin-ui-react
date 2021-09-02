@@ -1,29 +1,35 @@
-import React from 'react';
+import './Button.less';
+
 import PropTypes from 'prop-types';
-import './Button.less'
+import React from 'react';
 
 const mapType2ClassName = {
-    'primary': 'l-ui-btn-primary'
-}
-function Button(props) {
-    const Type = props.type;
+    primary: 'l-ui-btn-primary',
+};
+function Button({ type, children, onClick }) {
+    const Type = type;
 
-
-    let classList = ["l-ui-btn "]
+    const classList = ['l-ui-btn '];
     if (mapType2ClassName[Type]) {
         classList.push((mapType2ClassName[Type]));
-
     }
 
-
-
-    return <button className={classList.join(" ")} >
-        {props.children}
-    </button>
+    return (
+        <button
+            type="button"
+            onClick={(e) => {
+                onClick?.(e);
+            }}
+            className={classList.join(' ')}
+        >
+            {children}
+        </button>
+    );
 }
 
 Button.propTypes = {
-    type: PropTypes.string
-}
+    type: PropTypes.string,
+    children: PropTypes.object,
+};
 
-export default Button
+export default Button;

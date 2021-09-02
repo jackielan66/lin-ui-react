@@ -1,0 +1,93 @@
+
+ // BUTTON boss按钮样式
+ 
+  
+
+    .l-ui-input-number {
+        display: inline-block;
+        border-width: 1px;
+        border-style: solid;
+        border-color: @borderColor;
+        transition: border 300ms;
+        // padding: 4px 10px;
+        position: relative;
+        &:hover,&.l-ui-input-number-focus{
+            border-color:@primaryColor;
+        }
+    //   cursor: pointer;
+    //   box-sizing: border-box;
+    //   color: white;
+    //   height: 28px;
+    //   line-height: 28px;
+    //   text-align: center;
+    //   font-size: 12px;
+    //   font-weight: 600;
+    //   color: #FFFFFF;
+    //   border-radius: 4px;
+    //   padding: 0 15px;
+    //   font-size: 12px;
+    //   border: none;
+    //   &.l-ui-btn-block,&[block]{
+    //     width: 100%;
+    //   }
+    //   &.l-ui-btn-default{
+    //     background-color: @defaultColor;
+    //     &:active,&:hover{
+    //       background-color: #64666D;
+    //     }
+    //   }
+    //   &.l-ui-btn-danger{
+    //     background-color: @dangerColor;
+    //     &:active,&:hover{
+    //       background-color: #FA0C48;
+    //     }
+    //   }
+    //   &.l-ui-btn-primary{
+    //     background-color: @primaryColor;
+    //     &:active,&:hover{
+    //       background-color: #26acf9;
+    //     }
+    //   }
+    //   &[disabled]{
+    //     opacity: 0.8;
+    //     cursor: not-allowed;
+    //   }
+     
+}
+
+.l-ui-input-number-handle{
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 20px;
+    cursor: pointer;
+}
+.l-ui-input-number-handle-up,.l-ui-input-number-handle-down{
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid @borderColor;
+    &:active{
+        opacity: 0.65;
+    }
+}
+.l-ui-input-number-handle-up{
+    border-bottom: 1px solid @borderColor;
+}
+
+.l-ui-input-number-input{
+    border: none;
+    outline: none;
+    padding: 0 11px;
+    width: 100%;
+    height: 30px;
+    box-sizing: border-box;
+} 
+.l-ui-input-number-input:active,{
+    border: 0;
+} 
+  
