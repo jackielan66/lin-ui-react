@@ -88,7 +88,7 @@ function App() {
 
     return (
         <div type="" className="App">
-            {/* <Tabs defaultActiveKey="1" onChange={callback}>
+            <Tabs defaultActiveKey="1" onChange={callback}>
                 <Tabs.TabPane tab="Tab 1" key="1">
                     Content of Tab Pane 1
                 </Tabs.TabPane>
@@ -105,7 +105,7 @@ function App() {
                 {count}
                 {' '}
             </span>
-            <Input value={count} onChange={setCount} /> */}
+            <Input value={count} onChange={setCount} />
             {/* <Input type="password" value={count} />
             <div>
                 <Input addonBefore="http://" addonAfter=".com" defaultValue="mysite" />

@@ -31,9 +31,9 @@ class Input extends Component {
         }
     }
 
-    static getDerivedStateFromProps() {
+    // static getDerivedStateFromProps() {
 
-    }
+    // }
 
     setFocus(focus) {
         this.setState({

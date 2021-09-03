@@ -45,7 +45,7 @@ const TabNavList = ({
         }
         setInkBarStyle({
             width: 30,
-            left: curActiveKey * 20,
+            // left: curActiveKey * 20,
         });
     }, [curActiveKey]);
 
