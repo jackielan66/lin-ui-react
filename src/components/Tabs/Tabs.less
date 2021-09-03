@@ -1,0 +1,32 @@
+
+ // BUTTON boss按钮样式
+    @tab-prefix-cls:l-ui-tabs;
+   
+    .@{tab-prefix-cls}{
+        &-nav-list{
+            display: flex;
+            position: relative;
+        }
+        &-ink-bar{
+            position: absolute;
+            min-width: 2px;
+            height: 1px;
+            background-color: @primaryColor;
+            bottom: 0px;
+        }
+        &-tab{
+            position: relative;
+            padding: 12px 0;
+            font-size: 14px;
+            cursor: pointer;
+            &-active{
+                color: @primaryColor;
+            }
+        }
+        &-tab + &-tab{
+            margin-left: 32px;
+        }
+    }
+  
+     
+  

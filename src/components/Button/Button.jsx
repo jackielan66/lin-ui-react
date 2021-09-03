@@ -1,7 +1,7 @@
-import './Button.less';
-
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+
+import './Button.less';
 
 const mapType2ClassName = {
     primary: 'l-ui-btn-primary',
@@ -29,7 +29,7 @@ function Button({ type, children, onClick }) {
 
 Button.propTypes = {
     type: PropTypes.string,
-    children: PropTypes.object,
+    children: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 };
 
 export default Button;

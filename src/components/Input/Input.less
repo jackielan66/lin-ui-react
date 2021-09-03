@@ -1,0 +1,129 @@
+
+ // BUTTON boss按钮样式
+    @inputPrefixCls:l-ui-input;
+   
+    .@{inputPrefixCls}-group-wrapper{
+        width: 100%;
+        display: inline-block;
+    }
+    .@{inputPrefixCls}-group{
+        display: flex;
+        align-items: center;
+        .@{inputPrefixCls}-group-addon:first-child{
+            // border-left: @borderRadius;
+            // border-right: @borderRadius;
+            border-right: 0;
+        }
+    }
+    .@{inputPrefixCls}-group-addon{
+        background-color: #fafafa;
+        height: 100%;
+        display: inline-block;
+        border-width: 1px;
+        border-style: solid;
+        border-color: @borderColor;
+        padding: 0 11px;
+        color: #000000d9;
+        font-weight: 400;
+        font-size: 14px;
+    }
+
+    
+     
+    .@{inputPrefixCls}-wrapper > .@{inputPrefixCls},.@{inputPrefixCls}-group-addon{
+        // display: table-cell;
+    }
+
+    .@{inputPrefixCls} {
+        display: inline-block;
+        border-width: 1px;
+        border-style: solid;
+        border-color: @borderColor;
+        border-radius: @borderRadius;
+        transition: all 300ms;
+        position: relative;
+        outline: none;
+        width: 100%;
+        font-size: 14px;
+        line-height: 1.5715;
+        padding: 4px 11px;
+        &:hover,&:focus,&-focus{
+            border-color:@primaryColor;
+        }
+    //   cursor: pointer;
+    //   box-sizing: border-box;
+    //   color: white;
+    //   height: 28px;
+    //   line-height: 28px;
+    //   text-align: center;
+    //   font-size: 12px;
+    //   font-weight: 600;
+    //   color: #FFFFFF;
+    //   border-radius: 4px;
+    //   padding: 0 15px;
+    //   font-size: 12px;
+    //   border: none;
+    //   &.l-ui-btn-block,&[block]{
+    //     width: 100%;
+    //   }
+    //   &.l-ui-btn-default{
+    //     background-color: @defaultColor;
+    //     &:active,&:hover{
+    //       background-color: #64666D;
+    //     }
+    //   }
+    //   &.l-ui-btn-danger{
+    //     background-color: @dangerColor;
+    //     &:active,&:hover{
+    //       background-color: #FA0C48;
+    //     }
+    //   }
+    //   &.l-ui-btn-primary{
+    //     background-color: @primaryColor;
+    //     &:active,&:hover{
+    //       background-color: #26acf9;
+    //     }
+    //   }
+    //   &[disabled]{
+    //     opacity: 0.8;
+    //     cursor: not-allowed;
+    //   }
+     
+}
+
+.l-ui-input-number-handle{
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 20px;
+    cursor: pointer;
+}
+.l-ui-input-number-handle-up,.l-ui-input-number-handle-down{
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid @borderColor;
+    &:active{
+        opacity: 0.65;
+    }
+}
+.l-ui-input-number-handle-up{
+    border-bottom: 1px solid @borderColor;
+}
+
+.l-ui-input-number-input{
+    border: none;
+    outline: none;
+    padding: 0 11px;
+    width: 100%;
+    height: 30px;
+    box-sizing: border-box;
+} 
+.l-ui-input-number-input:active,{
+    border: 0;
+} 
+  

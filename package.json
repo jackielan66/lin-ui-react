@@ -13,6 +13,7 @@
         "less": "^4.1.1",
         "less-loader": "7.0.2",
         "prop-types": "^15.7.2",
+        "rc-util": "^5.13.2",
         "react": "^17.0.0",
         "react-dom": "^17.0.0"
     },
@@ -29,7 +30,6 @@
         "eslint-plugin-jsx-a11y": "^6.4.1",
         "eslint-plugin-react": "^7.25.1",
         "eslint-plugin-react-hooks": "^4.2.0",
-        "eslint-plugin-simple-import-sort": "^7.0.0",
         "file-loader": "5.1.0",
         "html-webpack-plugin": "4.5.2",
         "lodash": "^4.17.21",
