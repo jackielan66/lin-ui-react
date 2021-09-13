@@ -2,6 +2,8 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+    mode: 'development',
+    devtool: 'cheap-module-eval-source-map',
     entry: './src/main.jsx',
     output: {
         filename: 'l-react-ui.js',
@@ -12,7 +14,7 @@ module.exports = {
         alias: {
             Components: path.resolve(__dirname, 'src/components/'),
         },
-        extensions: ['.jsx', '.js'],
+        extensions: ['.jsx', '.js', '.ts', '.tsx'],
     },
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
@@ -21,6 +23,20 @@ module.exports = {
     },
     module: {
         rules: [
+            {
+                test: /\.tsx$/,
+                loader: 'ts-loader',
+            },
+            {
+                test: /\.(jsx|js)$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env', ['@babel/preset-react']],
+                    },
+                },
+            },
             {
                 test: /\.(svg|jpg|gif)$/,
                 exclude: [
@@ -43,16 +59,7 @@ module.exports = {
                 test: /\.less$/,
                 loader: ['style-loader', 'css-loader', 'less-loader'],
             },
-            {
-                test: /\.(jsx|js)$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['@babel/preset-env', ['@babel/preset-react']],
-                    },
-                },
-            },
+
         ],
     },
     plugins: [

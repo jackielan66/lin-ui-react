@@ -17,7 +17,6 @@ module.exports = {
     plugins: [
         'react',
         'import',
-        'eslint-plugin-simple-import-sort',
     ],
     rules: {
         semi: ['error', 'always'],
@@ -25,17 +24,17 @@ module.exports = {
         indent: ['error', 4],
         'react/jsx-indent': ['error', 4, {
             checkAttributes: true, indentLogicalExpressions: true,
-        }]
-        // 'import/order': ['error', {
-        //     pathGroups: [
-        //         {
-        //             pattern: '@app/**',
-        //             group: 'external',
-        //             position: 'after',
-        //         },
-        //     ],
-        //     pathGroupsExcludedImportTypes: ['builtin'],
-        // }],
+        }],
+        'import/order': ['error', {
+            pathGroups: [
+                {
+                    pattern: '@app/**',
+                    group: 'external',
+                    position: 'after',
+                },
+            ],
+            pathGroupsExcludedImportTypes: ['builtin'],
+        }],
         // 'sort-imports': ['error', {
         //     ignoreCase: false,
         //     ignoreDeclarationSort: false,

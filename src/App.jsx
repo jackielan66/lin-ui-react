@@ -5,7 +5,7 @@ import React, {
     createRef, useEffect, useRef, useState,
 } from 'react';
 
-import { Input, Tabs } from './components';
+import { Input, Tabs, Tag } from './components';
 import Button from './components/Button/Button';
 import Divider from './components/Divider/Divider';
 // import './App.less'
@@ -88,7 +88,8 @@ function App() {
 
     return (
         <div type="" className="App">
-            <Tabs defaultActiveKey="1" onChange={callback}>
+            <Tag type="primary"> 323</Tag>
+            {/* <Tabs defaultActiveKey="1" onChange={callback}>
                 <Tabs.TabPane tab="Tab 1" key="1">
                     Content of Tab Pane 1
                 </Tabs.TabPane>
@@ -105,7 +106,7 @@ function App() {
                 {count}
                 {' '}
             </span>
-            <Input value={count} onChange={setCount} />
+            <Input value={count} onChange={setCount} /> */}
             {/* <Input type="password" value={count} />
             <div>
                 <Input addonBefore="http://" addonAfter=".com" defaultValue="mysite" />

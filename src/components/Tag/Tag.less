@@ -1,0 +1,57 @@
+
+ // BUTTON boss按钮样式
+//  在样式属性值中使用时，直接用 @variable 即可调用变量；
+
+//  在其他地方，包括选择器名称、属性名称、URL和@import语句使用时，变量必须以插值的形式使用，例如：
+
+    @dangerColor:#FF2845;
+    @primaryColor:#2878FF;
+    @defaultColor:#6A6B6E;
+    @prefixCls:l-ui-tag;
+
+    .@{prefixCls} {
+        display: block;
+      cursor: pointer;
+      box-sizing: border-box;
+      color: white;
+      height: 28px;
+      line-height: 28px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: #FFFFFF;
+      border-radius: 4px;
+      padding: 0 15px;
+      font-size: 12px;
+      border: none;
+      &-primary{
+          background-color: @primaryColor;
+      }
+      &.l-ui-btn-block,&[block]{
+        width: 100%;
+      }
+      &.l-ui-btn-default{
+        background-color: @defaultColor;
+        &:active,&:hover{
+          background-color: #64666D;
+        }
+      }
+      &.l-ui-btn-danger{
+        background-color: @dangerColor;
+        &:active,&:hover{
+          background-color: #FA0C48;
+        }
+      }
+      &.l-ui-btn-primary{
+        background-color: @primaryColor;
+        &:active,&:hover{
+          background-color: #26acf9;
+        }
+      }
+      &[disabled]{
+        opacity: 0.8;
+        cursor: not-allowed;
+      }
+     
+    }
+  

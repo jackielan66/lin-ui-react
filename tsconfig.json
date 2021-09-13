@@ -1,0 +1,7 @@
+{
+    "compilerOptions": {
+        "sourceMap": true,
+        // "allowSyntheticDefaultImports": true,
+        "jsx": "react",
+    },
+}
