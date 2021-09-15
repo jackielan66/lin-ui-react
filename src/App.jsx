@@ -14,6 +14,7 @@ import Icon from './components/Icon/Icon';
 import { Title } from './components/Typography';
 import logo from './logo.svg';
 
+const { CheckableTag } = Tag;
 const { TextArea } = Input;
 
 const usePrevious = (state) => {
@@ -81,14 +82,35 @@ const Test = () => {
 
 function App() {
     const [count, setCount] = useState(11);
+    const [selectedTags, setSelectedTags] = useState([]);
 
     const callback = () => {
 
     };
 
+    const handleChange = (tag, checked) => {
+        const nextSelectedTags = checked ? [...selectedTags, tag] : selectedTags.filter((t) => t !== tag);
+        setSelectedTags(nextSelectedTags);
+    };
+
+    const tagsData = ['Movies', 'Books', 'Music', 'Sports'];
     return (
         <div type="" className="App">
-            <Tag type="primary"> 323</Tag>
+            <Tag color="magenta" closable> 323</Tag>
+            <Tag color="magenta"> 432423 </Tag>
+            <Tag color="#f50"> 432423 </Tag>
+            <Tag color="red">red</Tag>
+            <div />
+            <span style={{ marginRight: 8 }}>Categories:</span>
+            {tagsData.map((tag) => (
+                <CheckableTag
+                    key={tag}
+                    checked={selectedTags.indexOf(tag) > -1}
+                    onChange={(checked) => handleChange(tag, checked)}
+                >
+                    {tag}
+                </CheckableTag>
+            ))}
             {/* <Tabs defaultActiveKey="1" onChange={callback}>
                 <Tabs.TabPane tab="Tab 1" key="1">
                     Content of Tab Pane 1

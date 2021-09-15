@@ -1,35 +1,134 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
+import React = require('react');
+// import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import omit from 'rc-util/lib/omit';
+// import { ConfigContext } from '../config-provider';
+import {
+    PresetColorTypes,
+    PresetStatusColorTypes,
+    PresetColorType,
+    PresetStatusColorType,
+} from '../_util/colors';
+// import Wave from '../_util/wave';
+import { LiteralUnion } from '../_util/type';
 
-interface TagProps {
-    type?: string
-    prefixCls?: string
-    children: object,
-    onClick: Function
+import CheckableTag from './CheckableTag';
+
+export interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
+    prefixCls?: string;
+    className?: string;
+    color?: LiteralUnion<PresetColorType | PresetColorType, string>;
+    closable?: boolean;
+    visible?: boolean;
+    onClose?: (e: React.MouseEvent<HTMLElement>) => void;
+    style?: React.CSSProperties;
+    icon?: React.ReactNode,
+    closeIcon?: React.ReactNode,
 }
 
-function Tag({ type = '', children, onClick, prefixCls = 'l-ui-tag' }: TagProps) {
+const PresetColorRegex = new RegExp(`^(${PresetColorTypes.join('|')})(-inverse)?$`);
+const PresetStatusColorRegex = new RegExp(`^(${PresetStatusColorTypes.join('|')})$`);
 
-    console.log(`prefixCls-${type}`, '33 === 323')
+export interface TagType
+    extends React.ForwardRefExoticComponent<TagProps & React.RefAttributes<HTMLElement>> {
+    CheckableTag: typeof CheckableTag;
+}
 
-    return (
-        <span
-            onClick={(e) => {
-                onClick?.(e);
-            }}
-            className={classNames(prefixCls, {
-                [`${prefixCls}-${type}`]: true
-            })}
-        >
-            {children}
-        </span >
+const CloseOutlined = <span>、、、</span>;
+
+const InternalTag: React.ForwardRefRenderFunction<HTMLSpanElement, TagProps> = ({
+    prefixCls = 'l-ui-tag',
+    className,
+    children,
+    icon,
+    color,
+    onClose,
+    closeIcon,
+    closable = false,
+    style,
+    ...props
+
+}, ref) => {
+    const [visible, setVisible] = React.useState(true);
+    React.useEffect(() => {
+        if ('visible' in props) {
+            setVisible(props.visible!);
+        }
+    }, []);
+
+    const isPresetColor = (): boolean => {
+        if (!color) {
+            return false;
+        }
+        return PresetColorRegex.test(color) || PresetStatusColorRegex.test(color);
+    };
+
+    const tagStyle = {
+        backgroundColor: color && !isPresetColor() ? color : undefined,
+        ...style,
+    };
+
+    const presetColor = isPresetColor();
+
+    const tagClassName = classNames(
+        prefixCls,
+        {
+            [`${prefixCls}-${color}`]: presetColor,
+            [`${prefixCls}-has-color`]: color && !presetColor,
+            [`${prefixCls}-hidden`]: !visible,
+            [`${prefixCls}-rtl`]: false,
+        },
+        className,
     );
-}
 
-Tag.propTypes = {
-    // type: PropTypes.string,
-    // children: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    const handleCloseClick = (e: React.MouseEvent<HTMLElement>) => {
+        e.stopPropagation();
+        onClose?.(e);
+        if (e.defaultPrevented) {
+            return;
+        }
+        if (!('visible' in props)) {
+            setVisible(false);
+        }
+    };
+
+    const renderCloseIcon = () => {
+        if (closable) {
+            return (
+                <span role="presentation" className={`${prefixCls}-close-icon`} onClick={handleCloseClick}>
+                    ×
+                </span>
+            );
+        }
+        return null;
+    };
+
+    const isNeedWave = 'onClick' in props || (children && (children as React.ReactElement<any>).type === 'a');
+
+    const tagProps = omit(props, ['visible']);
+    const iconNode = icon || null;
+    const kids = iconNode ? (
+        <>
+            {iconNode}
+            <span>{children}</span>
+        </>
+    )
+        : children;
+
+    const tagNode = (
+        <span {...tagProps} ref={ref} className={tagClassName} style={tagStyle}>
+            {kids}
+            {renderCloseIcon()}
+        </span>
+    );
+
+    return tagNode;
 };
+
+const Tag = React.forwardRef<unknown, TagProps>(InternalTag) as TagType;
+
+Tag.displayName = 'Tag';
+
+Tag.CheckableTag = CheckableTag;
 
 export default Tag;
