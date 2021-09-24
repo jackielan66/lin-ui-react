@@ -5,12 +5,14 @@ import React, {
     createRef, useEffect, useRef, useState,
 } from 'react';
 
-import { Input, Tabs, Tag } from './components';
+import {
+    Input, Tabs, Tag, Icon, Image,
+} from './components';
 import Button from './components/Button/Button';
 import Divider from './components/Divider/Divider';
 // import './App.less'
 // import Picker from './components/Picker/index'
-import Icon from './components/Icon/Icon';
+// import Icon from './components/Icon/Icon';
 import { Title } from './components/Typography';
 import logo from './logo.svg';
 
@@ -39,8 +41,8 @@ const Test = () => {
         // debugger;
     }
     prevUseRefIntance = refFromUseRef;
-    console.log(refFromUseRef, 'refFromUseRef');
-    console.log(refFromCreateRef, 'refFromCreateRef');
+    // console.log(refFromUseRef, 'refFromUseRef');
+    // console.log(refFromCreateRef, 'refFromCreateRef');
 
     const prevCount = usePrevious(renderIndex);
 
@@ -94,8 +96,14 @@ function App() {
     };
 
     const tagsData = ['Movies', 'Books', 'Music', 'Sports'];
+
+    const handleClickIcon = () => {
+        alert(this);
+    };
+
     return (
         <div type="" className="App">
+            <Icon className="test" size="22" onClick={handleClickIcon} type="arrow-down-bold" />
             <Tag color="magenta" closable> 323</Tag>
             <Tag color="magenta"> 432423 </Tag>
             <Tag color="#f50"> 432423 </Tag>
@@ -111,6 +119,17 @@ function App() {
                     {tag}
                 </CheckableTag>
             ))}
+            <Image
+                width={200}
+                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+            />
+            <Image
+                width={200}
+                src="error"
+            />
+            {/* <Badge dot>
+                <a href="#">Link something</a>
+            </Badge> */}
             {/* <Tabs defaultActiveKey="1" onChange={callback}>
                 <Tabs.TabPane tab="Tab 1" key="1">
                     Content of Tab Pane 1

@@ -1,0 +1,59 @@
+
+ // BUTTON boss按钮样式
+
+@dangerColor:#FF2845;
+@primaryColor:#2878FF;
+@defaultColor:#6A6B6E;
+@iconColor:#6A6B6E;
+@prefixCls:l-ui-image-preview;
+
+.@{prefixCls} {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &-mask{
+        background-color: rgba(0,0,0,.55);
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+    }
+    &-operation{
+        position: absolute;
+        width: 100%;
+        height:30px;
+        left: 0;
+        top: 0;
+        background-color: rgba(0,0,0,.3);
+        z-index: 2;
+
+    }
+    &-operation-action{
+        display: inline-block;
+        color: #fff;      
+        margin: 0 15px;  
+    }
+    &-img{
+        position: relative;
+        z-index: 1;
+        height: 100%;
+        transition: all 300ms;
+        // transform: rotate(45deg) scale3d(1,1,0);
+        // transform: rotate(180deg);
+
+        // transform: skew(90deg);
+    }
+    // &-mask-info{
+    //     font-size: 14px;
+    //     color: #fff;
+    //     cursor: pointer;
+    // }
+}
+
+

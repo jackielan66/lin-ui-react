@@ -5,6 +5,11 @@ import InputNumber from './InputNumber/InputNumber';
 import Tabs from './Tabs';
 import Tree from './Tree/Tree';
 import Tag from './Tag/Tag';
+import Icon from './Icon/Icon';
+// import Badge from './Badge/Badge';
+import Image from './Image/Image';
+
+// console.log(Badge, 'Badge');
 
 export {
     Button,
@@ -14,4 +19,7 @@ export {
     Tabs,
     Tree,
     Tag,
+    Icon,
+    Image,
+    // Badge,
 };

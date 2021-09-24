@@ -33,3 +33,6 @@ svg 雪碧图
 ## html怎么使用svg
 
 请查看 https://www.zhangxinxu.com/wordpress/2014/07/introduce-svg-sprite-technology/
+
+空值合并操作符（??）
+可选链操作符( ?. )
