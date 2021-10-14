@@ -8,7 +8,7 @@ import Tag from './Tag/Tag';
 import Icon from './Icon/Icon';
 // import Badge from './Badge/Badge';
 import Image from './Image/Image';
-
+import Modal from './Modal/Modal-internal';
 // console.log(Badge, 'Badge');
 
 export {
@@ -21,5 +21,6 @@ export {
     Tag,
     Icon,
     Image,
+    Modal,
     // Badge,
 };

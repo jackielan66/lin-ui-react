@@ -6,7 +6,7 @@ import React, {
 } from 'react';
 
 import {
-    Input, Tabs, Tag, Icon, Image,
+    Input, Tabs, Tag, Icon, Image, Modal,
 } from './components';
 import Button from './components/Button/Button';
 import Divider from './components/Divider/Divider';
@@ -85,9 +85,21 @@ const Test = () => {
 function App() {
     const [count, setCount] = useState(11);
     const [selectedTags, setSelectedTags] = useState([]);
-
+    const [isModalVisible, setIsModalVisible] = useState(false);
     const callback = () => {
 
+    };
+
+    const showModal = () => {
+        setIsModalVisible(true);
+    };
+
+    const handleOk = () => {
+        setIsModalVisible(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
     };
 
     const handleChange = (tag, checked) => {
@@ -103,6 +115,16 @@ function App() {
 
     return (
         <div type="" className="App">
+            <Button type="primary" onClick={showModal}>
+                Open Modal
+            </Button>
+            <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+                <p>Some contents...</p>
+                <p>Some contents...</p>
+                <p>Some contents...</p>
+                3121
+                323
+            </Modal>
             <Icon className="test" size="22" onClick={handleClickIcon} type="arrow-down-bold" />
             <Tag color="magenta" closable> 323</Tag>
             <Tag color="magenta"> 432423 </Tag>

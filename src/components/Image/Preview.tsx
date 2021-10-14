@@ -1,126 +1,312 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import Dialog, { DialogProps as IDialogPropTypes } from 'rc-dialog';
+import classnames from 'classnames';
+import addEventListener from 'rc-util/lib/Dom/addEventListener';
+import { warning } from 'rc-util/lib/warning';
+import useFrameSetState from './hooks/useFrameSetState';
+import getFixScaleEleTransPosition from './getFixScaleEleTransPosition';
+import { context } from './PreviewGroup';
 
-import './Preview.less';
+const { useState, useEffect } = React;
 
-const fallbackImg = 'data:image/png;base64,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';
-
-interface PreviewProps {
-    src: string,
-    prefixCls?: string,
-    size?: number,
-    className?: string,
-    type?: string,
-    width?: number,
-    alt?: string,
-    visible: boolean;
-    // onHidden?: (React.MouseEvent) => void;
-    onHidden?: Function
+export interface PreviewProps extends Omit<IDialogPropTypes, 'onClose'> {
+    onClose?: (e: React.SyntheticEvent<Element>) => void;
+    src?: string;
+    alt?: string;
+    icons?: {
+        rotateLeft?: React.ReactNode;
+        rotateRight?: React.ReactNode;
+        zoomIn?: React.ReactNode;
+        zoomOut?: React.ReactNode;
+        close?: React.ReactNode;
+        left?: React.ReactNode;
+        right?: React.ReactNode;
+    };
 }
 
-const Preview = ({
-    src,
-    prefixCls = 'l-ui-image-preview', size = 16, type, className, alt = '',
-    visible,
-    width,
-    onHidden,
-}: PreviewProps): React.ReactElement<PreviewProps> => {
-    const [rotateValue, setRotateValue] = React.useState(1);
-    const [scale, setScale] = React.useState(1);
-
-    const handleClickAction = (type) => {
-        if (type === 'left') {
-            setRotateValue(rotateValue - 90);
-        }
-        if (type === 'right') {
-            setRotateValue(rotateValue + 90);
-        }
-        if (type === 'big') {
-            setScale(scale + 0.1);
-        }
-        if (type === 'small') {
-            setScale(scale - 0.1);
-        }
-
-        // transform: scale3d(1,1,0);
-    };
-
-    const handleHidden = (event: React.MouseEvent) => {
-        onHidden?.(event);
-    };
-
-    return (
-        <div className={classNames(prefixCls, className)}>
-
-            <div
-                className={classNames({
-                    [`${prefixCls}-mask`]: true,
-                })}
-                onClick={handleHidden}
-            />
-            <ul
-                className={classNames({
-                    [`${prefixCls}-operation`]: true,
-                })}
-            >
-                <li
-                    className={classNames({
-                        [`${prefixCls}-operation-action`]: true,
-                    })}
-                    onClick={() => handleClickAction('left')}
-                >
-                    左
-                </li>
-                <li
-                    className={classNames({
-                        [`${prefixCls}-operation-action`]: true,
-                    })}
-                    onClick={() => handleClickAction('right')}
-                >
-                    右
-                </li>
-                <li
-                    className={classNames({
-                        [`${prefixCls}-operation-action`]: true,
-                    })}
-                    onClick={() => handleClickAction('big')}
-                >
-                    大
-                </li>
-                <li
-                    className={classNames({
-                        [`${prefixCls}-operation-action`]: true,
-                    })}
-                    onClick={() => handleClickAction('small')}
-                >
-                    小
-                </li>
-                <li
-                    className={classNames({
-                        [`${prefixCls}-operation-action`]: true,
-                    })}
-                    onClick={() => handleClickAction('close')}
-                >
-                    关闭
-                </li>
-            </ul>
-            <img
-                className={classNames({
-                    [`${prefixCls}-img`]: true,
-                })}
-                src={src}
-                width={width}
-                alt={alt}
-                style={{
-                    transform: `rotate(${rotateValue}deg) scale3d(${scale},${scale},${scale})`,
-                }}
-            />
-        </div>
-    );
+const initialPosition = {
+    x: 0,
+    y: 0,
 };
 
-// Icon.propTypes = {
-//     type: PropTypes.string,
-// };
+const Preview: React.FC<PreviewProps> = (props) => {
+    const {
+        prefixCls, src, alt, onClose, afterClose, visible, icons = {}, ...restProps
+    } = props;
+    const {
+        rotateLeft, rotateRight, zoomIn, zoomOut, close, left, right,
+    } = icons;
+    const [scale, setScale] = useState(1);
+    const [rotate, setRotate] = useState(0);
+    const [position, setPosition] = useFrameSetState<{
+        x: number;
+        y: number;
+    }>(initialPosition);
+    const imgRef = React.useRef<HTMLImageElement>();
+    const originPositionRef = React.useRef<{
+        originX: number;
+        originY: number;
+        deltaX: number;
+        deltaY: number;
+    }>({
+        originX: 0,
+        originY: 0,
+        deltaX: 0,
+        deltaY: 0,
+    });
+    const [isMoving, setMoving] = React.useState(false);
+    const {
+        previewUrls, current, isPreviewGroup, setCurrent,
+    } = React.useContext(context);
+    const previewGroupCount = previewUrls.size;
+    const previewUrlsKeys = Array.from(previewUrls.keys());
+    const currentPreviewIndex = previewUrlsKeys.indexOf(current);
+    const combinationSrc = isPreviewGroup ? previewUrls.get(current) : src;
+    const showLeftOrRightSwitches = isPreviewGroup && previewGroupCount > 1;
+    const [lastWheelZoomDirection, setLastWheelZoomDirection] = React.useState({ wheelDirection: 0 });
+
+    const onAfterClose = () => {
+        setScale(1);
+        setRotate(0);
+        setPosition(initialPosition);
+    };
+
+    const onZoomIn = () => {
+        setScale((value) => value + 1);
+        setPosition(initialPosition);
+    };
+
+    const onZoomOut = () => {
+        if (scale > 1) {
+            setScale((value) => value - 1);
+        }
+        setPosition(initialPosition);
+    };
+
+    const onRotateRight = () => {
+        setRotate((value) => value + 90);
+    };
+
+    const onRotateLeft = () => {
+        setRotate((value) => value - 90);
+    };
+
+    const onSwitchLeft: React.MouseEventHandler<HTMLDivElement> = (event) => {
+        event.preventDefault();
+        // Without this mask close will abnormal
+        event.stopPropagation();
+        if (currentPreviewIndex > 0) {
+            setCurrent(previewUrlsKeys[currentPreviewIndex - 1]);
+        }
+    };
+
+    const onSwitchRight: React.MouseEventHandler<HTMLDivElement> = (event) => {
+        event.preventDefault();
+        // Without this mask close will abnormal
+        event.stopPropagation();
+        if (currentPreviewIndex < previewGroupCount - 1) {
+            setCurrent(previewUrlsKeys[currentPreviewIndex + 1]);
+        }
+    };
+
+    const wrapClassName = classnames({
+        [`${prefixCls}-moving`]: isMoving,
+    });
+    const toolClassName = `${prefixCls}-operations-operation`;
+    const iconClassName = `${prefixCls}-operations-icon`;
+    const tools = [
+        {
+            icon: close,
+            onClick: onClose,
+            type: 'close',
+        },
+        {
+            icon: zoomIn,
+            onClick: onZoomIn,
+            type: 'zoomIn',
+        },
+        {
+            icon: zoomOut,
+            onClick: onZoomOut,
+            type: 'zoomOut',
+            disabled: scale === 1,
+        },
+        {
+            icon: rotateRight,
+            onClick: onRotateRight,
+            type: 'rotateRight',
+        },
+        {
+            icon: rotateLeft,
+            onClick: onRotateLeft,
+            type: 'rotateLeft',
+        },
+    ];
+
+    const onMouseUp: React.MouseEventHandler<HTMLBodyElement> = () => {
+        if (visible && isMoving) {
+            const width = imgRef.current.offsetWidth * scale;
+            const height = imgRef.current.offsetHeight * scale;
+            // eslint-disable-next-line @typescript-eslint/no-shadow
+            const { left, top } = imgRef.current.getBoundingClientRect();
+            const isRotate = rotate % 180 !== 0;
+
+            setMoving(false);
+
+            const fixState = getFixScaleEleTransPosition(
+                isRotate ? height : width,
+                isRotate ? width : height,
+                left,
+                top,
+            );
+
+            if (fixState) {
+                setPosition({ ...fixState });
+            }
+        }
+    };
+
+    const onMouseDown: React.MouseEventHandler<HTMLDivElement> = (event) => {
+        // Only allow main button
+        if (event.button !== 0) return;
+        event.preventDefault();
+        // Without this mask close will abnormal
+        event.stopPropagation();
+        originPositionRef.current.deltaX = event.pageX - position.x;
+        originPositionRef.current.deltaY = event.pageY - position.y;
+        originPositionRef.current.originX = position.x;
+        originPositionRef.current.originY = position.y;
+        setMoving(true);
+    };
+
+    const onMouseMove: React.MouseEventHandler<HTMLBodyElement> = (event) => {
+        if (visible && isMoving) {
+            setPosition({
+                x: event.pageX - originPositionRef.current.deltaX,
+                y: event.pageY - originPositionRef.current.deltaY,
+            });
+        }
+    };
+
+    const onWheelMove: React.WheelEventHandler<HTMLBodyElement> = (event) => {
+        if (!visible) return;
+        event.preventDefault();
+        const wheelDirection = event.deltaY;
+        setLastWheelZoomDirection({ wheelDirection });
+    };
+
+    useEffect(() => {
+        const { wheelDirection } = lastWheelZoomDirection;
+        if (wheelDirection > 0) {
+            onZoomOut();
+        } else if (wheelDirection < 0) {
+            onZoomIn();
+        }
+    }, [lastWheelZoomDirection]);
+
+    useEffect(() => {
+        let onTopMouseUpListener;
+        let onTopMouseMoveListener;
+
+        const onMouseUpListener = addEventListener(window, 'mouseup', onMouseUp, false);
+        const onMouseMoveListener = addEventListener(window, 'mousemove', onMouseMove, false);
+        const onScrollWheelListener = addEventListener(window, 'wheel', onWheelMove, {
+            passive: false,
+        });
+
+        try {
+            // Resolve if in iframe lost event
+            /* istanbul ignore next */
+            if (window.top !== window.self) {
+                onTopMouseUpListener = addEventListener(window.top, 'mouseup', onMouseUp, false);
+                onTopMouseMoveListener = addEventListener(window.top, 'mousemove', onMouseMove, false);
+            }
+        } catch (error) {
+            /* istanbul ignore next */
+            warning(false, `[rc-image] ${error}`);
+        }
+
+        return () => {
+            onMouseUpListener.remove();
+            onMouseMoveListener.remove();
+            onScrollWheelListener.remove();
+
+            /* istanbul ignore next */
+            if (onTopMouseUpListener) onTopMouseUpListener.remove();
+            /* istanbul ignore next */
+            if (onTopMouseMoveListener) onTopMouseMoveListener.remove();
+        };
+    }, [visible, isMoving]);
+
+    return (
+        <Dialog
+            transitionName="zoom"
+            maskTransitionName="fade"
+            closable={false}
+            keyboard
+            prefixCls={prefixCls}
+            onClose={onClose}
+            afterClose={onAfterClose}
+            visible={visible}
+            wrapClassName={wrapClassName}
+            {...restProps}
+        >
+            <ul className={`${prefixCls}-operations`}>
+                {tools.map(({
+                    icon, onClick, type, disabled,
+                }) => (
+                    <li
+                        className={classnames(toolClassName, {
+                            [`${prefixCls}-operations-operation-disabled`]: !!disabled,
+                        })}
+                        onClick={onClick}
+                        key={type}
+                    >
+                        {React.isValidElement(icon)
+                            ? React.cloneElement(icon, { className: iconClassName })
+                            : icon}
+                    </li>
+                ))}
+            </ul>
+            <div
+                className={`${prefixCls}-img-wrapper`}
+                style={{
+                    transform: `translate3d(${position.x}px, ${position.y}px, 0)`,
+                }}
+            >
+                <img
+                    onMouseDown={onMouseDown}
+                    ref={imgRef}
+                    className={`${prefixCls}-img`}
+                    src={combinationSrc}
+                    alt={alt}
+                    style={{
+                        transform: `scale3d(${scale}, ${scale}, 1) rotate(${rotate}deg)`,
+                    }}
+                />
+            </div>
+            {showLeftOrRightSwitches && (
+                <div
+                    className={classnames(`${prefixCls}-switch-left`, {
+                        [`${prefixCls}-switch-left-disabled`]: currentPreviewIndex === 0,
+                    })}
+                    onClick={onSwitchLeft}
+                >
+                    {left}
+                </div>
+            )}
+            {showLeftOrRightSwitches && (
+                <div
+                    className={classnames(`${prefixCls}-switch-right`, {
+                        [`${prefixCls}-switch-right-disabled`]: currentPreviewIndex === previewGroupCount - 1,
+                    })}
+                    onClick={onSwitchRight}
+                >
+                    {right}
+                </div>
+            )}
+        </Dialog>
+    );
+};
 
 export default Preview;

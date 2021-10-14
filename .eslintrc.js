@@ -40,6 +40,7 @@ module.exports = {
             ],
             pathGroupsExcludedImportTypes: ['builtin'],
         }],
+        'max-len': ['error', { code: 120 }],
         // 'sort-imports': ['error', {
         //     ignoreCase: false,
         //     ignoreDeclarationSort: false,
