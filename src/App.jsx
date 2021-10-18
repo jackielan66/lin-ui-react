@@ -15,6 +15,7 @@ import Divider from './components/Divider/Divider';
 // import Icon from './components/Icon/Icon';
 import { Title } from './components/Typography';
 import logo from './logo.svg';
+import TestCom from './_Test';
 
 const { CheckableTag } = Tag;
 const { TextArea } = Input;
@@ -113,8 +114,11 @@ function App() {
         // alert(this);
     };
 
+    // console.log(isModalVisible, 'isModalVisible');
+
     return (
         <div type="" className="App">
+            <TestCom />
             <Button type="primary" onClick={showModal}>
                 Open Modal
             </Button>

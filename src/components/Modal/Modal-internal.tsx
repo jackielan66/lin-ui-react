@@ -179,6 +179,24 @@ interface ModalProps {
     getContainer?: () => HTMLElement
 }
 
+// 获取鼠标点击的事件
+let mousePosition: { x: number, y: number } | null;
+const getClickPosition = (e: MouseEvent) => {
+    mousePosition = {
+        x: e.pageX,
+        y: e.pageY,
+    };
+    // console.log(mousePosition, 'mousePosition');
+    // 100ms 内发生过点击事件，则从点击位置动画展示
+    // 否则直接 zoom 展示
+    // 这样可以兼容非点击方式展开
+    setTimeout(() => {
+        mousePosition = null;
+    }, 100);
+};
+
+document.documentElement.addEventListener('click', getClickPosition, true);
+
 const Modal = ({
     // src,
     // height,
@@ -195,7 +213,16 @@ const Modal = ({
     ...restProps
 }: ModalProps): React.ReactNode => {
     const imgSrc = '';
-    const wrapStyle = {
+    // 从哪里点击，就从哪里动画出来
+
+    console.log('mousePosition', mousePosition);
+    let transformOrigin = '';
+    if (mousePosition) {
+        transformOrigin = `${mousePosition.x}px ${mousePosition.y}px`;
+    }
+
+    const contentStyle = {
+        transformOrigin,
         ...width ? { width } : {},
     };
     const onClickMask = () => {
@@ -204,9 +231,11 @@ const Modal = ({
         }
     };
     const containerDom = getContainer();
+
     return ReactDOM.createPortal(<div
         className={classNames(`${prefixCls}-root`, `${prefixCls}-text-center`, className)}
         style={{ display: visible ? 'block' : 'none' }}
+
     >
 
         {mask && (
@@ -218,23 +247,26 @@ const Modal = ({
             />
         )}
 
-        <div className={`${prefixCls}-wrap`} style={wrapStyle}>
-            <div className={`${prefixCls}-title`}>
-                {title}
-                <span
-                    className={`${prefixCls}-close`}
-                    onClick={() => {
-                        onCancel?.();
-                    }}
-                >
-                    关闭
-                </span>
+        <div className={`${prefixCls}-wrap`}>
+            <div className={`${prefixCls}-content`} style={contentStyle}>
+                <div className={`${prefixCls}-title`}>
+                    {title}
+                    <span
+                        className={`${prefixCls}-close`}
+                        onClick={() => {
+                            onCancel?.();
+                        }}
+                    >
+                        关闭
+                    </span>
+                </div>
+                <div className={`${prefixCls}-body`} style={bodyStyle || {}}>
+                    {
+                        restProps.children
+                    }
+                </div>
             </div>
-            <div className={`${prefixCls}-body`} style={bodyStyle || {}}>
-                {
-                    restProps.children
-                }
-            </div>
+
             {/* <div className={`${prefixCls}-footer`}>
                 <button>取消</button>
                 <button>确定</button>
