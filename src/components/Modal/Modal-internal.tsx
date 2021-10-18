@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { useState } from 'react';
 import classNames from 'classnames';
 import { getOffset } from 'rc-util/lib/Dom/css';
@@ -9,7 +10,7 @@ import { IDialogPropTypes } from 'rc-dialog/lib/IDialogPropTypes';
 // import Preview, { PreviewProps } from './Preview';
 // import PreviewGroup, { context } from './PreviewGroup';
 
-import './Modal.less';
+import './Modal-internal.less';
 
 // export interface ImagePreviewType extends Omit<IDialogPropTypes,
 //     'mask' | 'visible' | 'closable' | 'prefixCls' | 'onClose' | 'afterClose' | 'wrapClassName'
@@ -165,7 +166,17 @@ import './Modal.less';
 
 interface ModalProps {
     prefixCls: string;
-    className: string
+    className: string;
+    visible: boolean;
+    title: React.ReactNode;
+    children: React.ReactNode;
+    onCancel?: () => void;
+    width?: string | number;
+    mask: boolean;
+    maskCloseable: boolean;
+    afterClose?: () => void;
+    bodyStyle?: React.CSSProperties;
+    getContainer?: () => HTMLElement
 }
 
 const Modal = ({
@@ -173,81 +184,63 @@ const Modal = ({
     // height,
     prefixCls = 'l-ui-modal',
     className,
-    // size = 16, type, className, alt = '',
-    // // width, fallback = fallbackImg,
-    // preview = true,
-    // placeholder,
+    visible,
+    title,
+    width,
+    onCancel,
+    mask = true,
+    maskCloseable = true,
+    bodyStyle,
+    getContainer = () => document.body,
     ...restProps
-}: ModalProps): React.ReactElement<ModalProps> =>
-// const [visible, setVisible] = React.useState(false);
-
-// const handleClickPreview = () => {
-//     if (preview) {
-//         setVisible(true);
-//     }
-// };
-
-// const [loadStatus, setLoadStatus] = React.useState('success');
-
-// // =================  img load ======================
-// React.useEffect(() => {
-//     const image = new Image();
-//     image.src = src;
-//     image.onerror = () => {
-//         setLoadStatus('error');
-//     };
-// }, [src]);
-
-// const imgSrc = loadStatus === 'success' ? src : fallback;
-
-(
-    <div className={classNames(prefixCls, className)}>
-        {
-            // restProps.children
+}: ModalProps): React.ReactNode => {
+    const imgSrc = '';
+    const wrapStyle = {
+        ...width ? { width } : {},
+    };
+    const onClickMask = () => {
+        if (maskCloseable) {
+            onCancel?.();
         }
-        {/* <img src={imgSrc} width={width} alt={alt} />
-            {
-                loadStatus === 'success' && preview && (
-                    <div
-                        className={classNames({
-                            [`${prefixCls}-mask`]: true,
-                        })}
-                        onClick={handleClickPreview}
-                    >
-                        {
-                            placeholder || (
-                                <div
-                                    className={classNames({
-                                        [`${prefixCls}-mask-info`]: true,
-                                    })}
+    };
+    const containerDom = getContainer();
+    return ReactDOM.createPortal(<div
+        className={classNames(`${prefixCls}-root`, `${prefixCls}-text-center`, className)}
+        style={{ display: visible ? 'block' : 'none' }}
+    >
 
-                                >
-                                    预览
-                                </div>
-                            )
-                        }
-                    </div>
-                )
-            }
+        {mask && (
+            <div
+                className={`${prefixCls}-mask`}
+                onClick={() => {
+                    onClickMask?.();
+                }}
+            />
+        )}
 
-            {
-                visible && (
-                    <Preview
-                        visible={visible}
-                        src={src}
-                        onHidden={(event) => {
-                            setVisible(false);
-                        }}
-                    />
-                )
-            } */}
-
-    </div>
-)
-    ;
-
-// Icon.propTypes = {
-//     type: PropTypes.string,
-// };
+        <div className={`${prefixCls}-wrap`} style={wrapStyle}>
+            <div className={`${prefixCls}-title`}>
+                {title}
+                <span
+                    className={`${prefixCls}-close`}
+                    onClick={() => {
+                        onCancel?.();
+                    }}
+                >
+                    关闭
+                </span>
+            </div>
+            <div className={`${prefixCls}-body`} style={bodyStyle || {}}>
+                {
+                    restProps.children
+                }
+            </div>
+            {/* <div className={`${prefixCls}-footer`}>
+                <button>取消</button>
+                <button>确定</button>
+            </div> */}
+        </div>
+    </div>, containerDom);
+};
 
 export default Modal;

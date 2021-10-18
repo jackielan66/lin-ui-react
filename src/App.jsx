@@ -85,7 +85,7 @@ const Test = () => {
 function App() {
     const [count, setCount] = useState(11);
     const [selectedTags, setSelectedTags] = useState([]);
-    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [isModalVisible, setIsModalVisible] = useState(true);
     const callback = () => {
 
     };
@@ -110,7 +110,7 @@ function App() {
     const tagsData = ['Movies', 'Books', 'Music', 'Sports'];
 
     const handleClickIcon = () => {
-        alert(this);
+        // alert(this);
     };
 
     return (
@@ -118,12 +118,23 @@ function App() {
             <Button type="primary" onClick={showModal}>
                 Open Modal
             </Button>
-            <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+            <Modal
+                title="Basic Modal"
+                width="800px"
+                visible={isModalVisible}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                bodyStyle={{
+                    padding: 0,
+                }}
+            // getContainer={() => document.getElementById('root')}
+            >
                 <p>Some contents...</p>
                 <p>Some contents...</p>
                 <p>Some contents...</p>
                 3121
                 323
+                dialog content
             </Modal>
             <Icon className="test" size="22" onClick={handleClickIcon} type="arrow-down-bold" />
             <Tag color="magenta" closable> 323</Tag>
@@ -141,7 +152,7 @@ function App() {
                     {tag}
                 </CheckableTag>
             ))}
-            <Image
+            {/* <Image
                 width={200}
                 placeholder={(
                     <Image
@@ -156,7 +167,7 @@ function App() {
                 width={200}
                 src="error
                 "
-            />
+            /> */}
             {/* <Badge dot>
                 <a href="#">Link something</a>
             </Badge> */}
