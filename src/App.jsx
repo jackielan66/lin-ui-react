@@ -6,7 +6,7 @@ import React, {
 } from 'react';
 
 import {
-    Input, Tabs, Tag, Icon, Image, Modal,
+    Input, Tabs, Tag, Icon, Image, Modal, Message,
 } from './components';
 import Button from './components/Button/Button';
 import Divider from './components/Divider/Divider';
@@ -16,6 +16,8 @@ import Divider from './components/Divider/Divider';
 import { Title } from './components/Typography';
 import logo from './logo.svg';
 import TestCom from './_Test';
+
+import Notification from './components/notification';
 
 const { CheckableTag } = Tag;
 const { TextArea } = Input;
@@ -86,13 +88,36 @@ const Test = () => {
 function App() {
     const [count, setCount] = useState(11);
     const [selectedTags, setSelectedTags] = useState([]);
-    const [isModalVisible, setIsModalVisible] = useState(true);
+    const [isModalVisible, setIsModalVisible] = useState(false);
     const callback = () => {
 
     };
-
+    // const singleInstance = null;
     const showModal = () => {
-        setIsModalVisible(true);
+        // Message.newInstance({}, (notification) => {
+        //     notification.destroy();
+        // });
+
+        Message.info('测试测试');
+        // debugger;
+        // Message.info('This is a normal message');
+        // setIsModalVisible(true);
+
+        // if (!singleInstance) {
+
+        // }
+
+        // if (singleInstance) {
+        //     singleInstance.notice({
+        //         content: 'content',
+        //     });
+        // }
+
+        // Notification.newInstance({}, (notification) => {
+        //     notification.notice({
+        //         content: 'content',
+        //     });
+        // });
     };
 
     const handleOk = () => {
@@ -122,7 +147,8 @@ function App() {
             <Button type="primary" onClick={showModal}>
                 Open Modal
             </Button>
-            <Modal
+
+            {/* <Modal
                 title="Basic Modal"
                 width="800px"
                 visible={isModalVisible}
@@ -139,7 +165,7 @@ function App() {
                 3121
                 323
                 dialog content
-            </Modal>
+            </Modal> */}
             <Icon className="test" size="22" onClick={handleClickIcon} type="arrow-down-bold" />
             <Tag color="magenta" closable> 323</Tag>
             <Tag color="magenta"> 432423 </Tag>

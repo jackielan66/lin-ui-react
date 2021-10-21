@@ -9,6 +9,7 @@ import Icon from './Icon/Icon';
 // import Badge from './Badge/Badge';
 import Image from './Image/Image';
 import Modal from './Modal/Modal-internal';
+import Message from './Message/Message-internal';
 // console.log(Badge, 'Badge');
 
 export {
@@ -22,5 +23,6 @@ export {
     Icon,
     Image,
     Modal,
+    Message,
     // Badge,
 };
