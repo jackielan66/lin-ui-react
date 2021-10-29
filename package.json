@@ -13,11 +13,12 @@
         "@types/webpack-env": "^1.16.2",
         "classnames": "^2.3.1",
         "lodash": "^4.17.21",
+        "rc-dialog": "~8.6.0",
         "rc-motion": "^2.4.4",
         "rc-util": "^5.13.2",
-        "rc-dialog": "~8.6.0",
         "react": "^17.0.0",
-        "react-dom": "^17.0.0"
+        "react-dom": "^17.0.0",
+        "save-svg-as-png": "^1.4.17"
     },
     "devDependencies": {
         "@babel/core": "^7.15.0",

@@ -11,6 +11,7 @@ import Image from './Image/Image';
 import Modal from './Modal/Modal-internal';
 import Message from './Message/Message-internal';
 // console.log(Badge, 'Badge');
+// import CSSMotion from './CSSMotion';
 
 export {
     Button,
@@ -24,5 +25,6 @@ export {
     Image,
     Modal,
     Message,
+    // CSSMotion,
     // Badge,
 };

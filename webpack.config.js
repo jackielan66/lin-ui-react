@@ -38,7 +38,7 @@ module.exports = {
                 },
             },
             {
-                test: /\.(svg|jpg|gif)$/,
+                test: /\.(svg|jpg|gif|ttf)$/,
                 exclude: [
                     path.resolve(__dirname, 'src/components/Icon/svg'),
                 ],
