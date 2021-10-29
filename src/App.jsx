@@ -18,6 +18,7 @@ import logo from './logo.svg';
 import TestCom from './_Test';
 
 import Notification from './components/notification';
+import Dashbox from './components/dashbox';
 
 const { CheckableTag } = Tag;
 const { TextArea } = Input;
@@ -140,13 +141,35 @@ function App() {
     };
 
     // console.log(isModalVisible, 'isModalVisible');
+    const boxArray = [{
+        id: 1,
+        x: 200,
+        y: 100,
+        left: 20,
+        top: 50,
+    },
+    {
+        id: 2,
+        x: 200,
+        y: 100,
+        left: 0,
+        top: 0,
+    }];
 
     return (
         <div type="" className="App">
-            <TestCom />
+            {
+                boxArray.map((item, index) => (
+                    <Dashbox key={item.id} id={item.id} visible actived >
+                        {item.id}
+                        modal
+                    </Dashbox>
+                ))
+            }
+            {/* <TestCom />
             <Button type="primary" onClick={showModal}>
                 Open Modal
-            </Button>
+            </Button> */}
 
             {/* <Modal
                 title="Basic Modal"

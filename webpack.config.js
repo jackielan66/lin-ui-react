@@ -56,8 +56,17 @@ module.exports = {
                 ],
             },
             {
+                test: /\.css$/,
+                loader: 'style-loader!css-loader?modules',
+            },
+            {
                 test: /\.less$/,
-                loader: ['style-loader', 'css-loader', 'less-loader'],
+                loader: ['style-loader', {
+                    loader: 'css-loader',
+                    options: {
+                        modules: true,
+                    },
+                }, 'less-loader'],
             },
 
         ],
