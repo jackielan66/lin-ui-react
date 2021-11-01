@@ -12,15 +12,24 @@ import React from 'react';
 // style    完全受控
 
 interface DashboxProps {
-    id: string | number,
+    id?: string | number,
     width?: string;
     height?: string;
-    left?: string,
-    right?: string,
-    top?: string,
-    visible: boolean;
     minHeight: string | number;
     minWidth: string | number;
+    /**
+ *   正数已left为基准
+ *   负数已right为基准偏离
+ *
+ * @type {number}
+ * @memberof DashboxProps
+ */
+    x?: number;
+
+    y?: number;
+
+    visible: boolean;
+
     /**
      *
      * 当前是否处于选中状态，选中可以拖动
@@ -33,17 +42,6 @@ interface DashboxProps {
 
     prefixCls: string;
 
-    // defaultStyle: React.CSSProperties;
-    // style: React.CSSProperties;
-    /**
-     *   正数已left为基准
-     *   负数已right为基准偏离
-     *
-     * @type {number}
-     * @memberof DashboxProps
-     */
-    x: number;
-    y: number;
     zIndex: number;
     /**
      *关闭时销毁 Modal 里的子元素
@@ -62,7 +60,7 @@ interface DashboxProps {
     /**
      * 结束鼠标点击事件,返回各种信息回去
      */
-    onMouseUp: () => void
+    onMouseUp: (any) => void
 }
 
 // 暴露外部，变成可控与不可能空控两种

@@ -143,24 +143,31 @@ function App() {
     // console.log(isModalVisible, 'isModalVisible');
     const boxArray = [{
         id: 1,
-        x: 200,
-        y: 100,
-        left: 20,
-        top: 50,
+        x: 20,
+        y: -50,
+        zIndex: 2,
+        width: 350,
+        height: 200
     },
     {
         id: 2,
-        x: 200,
-        y: 100,
-        left: 0,
-        top: 0,
-    }];
+        x: -20,
+        y: -50,
+        zIndex: 2,
+        width: 350,
+        height: 20,
+    }
+    ];
 
     return (
         <div type="" className="App">
             {
                 boxArray.map((item, index) => (
-                    <Dashbox key={item.id} id={item.id} visible actived >
+                    <Dashbox key={item.id} id={item.id} visible
+                        onMouseUp={(params) => {
+                            console.log(params, 'params')
+                        }}
+                        actived width={item.width} height={item.height} x={item.x} y={item.y}  >
                         {item.id}
                         modal
                     </Dashbox>

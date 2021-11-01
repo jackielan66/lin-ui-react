@@ -5,4 +5,8 @@
         "jsx": "react",
         "esModuleInterop": true
     },
+    "include": [
+        "src",
+        "react-app-env.d.ts" //配置的.d.ts文件
+    ]
 }

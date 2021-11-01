@@ -8,6 +8,7 @@ import UMover from './UMover';
 import UResize from './UResize';
 
 import { DashboxProps, DashboxState } from './interface';
+import { getTransformPos, getStyle } from './utils/positionFns';
 
 /**
  * 获取给定变量中第一个是数字的值
@@ -24,8 +25,6 @@ function generateUUID() {
     return `${uuid}`;
 }
 
-console.log(style, 'style');
-
 class Modal extends React.Component<DashboxProps, DashboxState> {
     ref;
 
@@ -41,26 +40,44 @@ class Modal extends React.Component<DashboxProps, DashboxState> {
         this.id = props.id || generateUUID();
 
         this.state = {
-            top: props.top,
-            bottom: props.bottom,
-            left: props.left,
-            right: props.right,
-            width: props.width,
-            height: props.height || props.minHeight,
-            zIndex: zIndexStore.addZIndex(this.id),
+            top: '',
+            bottom: '',
+            left: '',
+            right: '',
+            width: `${props.width}px` || `${props.minWidth}px`,
+            height: `${props.height}px` || `${props.minHeight}px`,
+            zIndex: props.zIndex || zIndexStore.addZIndex(this.id),
         };
     }
 
-    shouldComponentUpdate(nextProps) {
-        if (!(nextProps.width === this.props.width && nextProps.height === this.props.height)) {
-            this.setState({
-                width: nextProps.width,
-                height: nextProps.height,
-            });
-            return false;
-        }
-        return true;
+    componentDidMount() {
+        // console.log(this.ref, 'ref');
+        this.setPosition();
     }
+
+    setPosition = () => {
+        const { x, y, getContainer = () => document.body } = this.props;
+        const {
+            left, right, top, bottom,
+        } = getTransformPos({ x, y }, this.ref.current, getContainer());
+        this.setState({
+            left,
+            right,
+            bottom,
+            top,
+        });
+    }
+
+    // shouldComponentUpdate(nextProps) {
+    //     if (!(nextProps.width === this.props.width && nextProps.height === this.props.height)) {
+    //         this.setState({
+    //             width: nextProps.width,
+    //             height: nextProps.height,
+    //         });
+    //         return false;
+    //     }
+    //     return true;
+    // }
 
     componentDidUpdate(prevProps) {
         if (!prevProps.visible && this.props.visible) {
@@ -106,22 +123,33 @@ class Modal extends React.Component<DashboxProps, DashboxState> {
         });
     }
 
+    onEnd = () => {
+        const style = {};
+        const { getContainer = () => document.body } = this.props;
+        const {
+            x, y, width, height, zIndex,
+        } = getStyle(this.ref.current, getContainer());
+        this.props.onMouseUp?.(style);
+        // drag或者resize 结束后 回调
+    }
+
     render() {
         const {
             width, height, top, bottom, left, right, zIndex,
         } = this.state;
         const {
-            minHeight, minWidth, actived, className, visible, prefixCls = 'dialog', onResize,
+            minHeight = 10, minWidth = 10, actived, className, visible, prefixCls = 'dialog', onResize,
             onMouseUp, getContainer = () => document.body,
+            destroyOnClose,
         } = this.props;
 
-        console.log(this.ref, 'this.ref.current');
+        // console.log(this.ref, 'this.ref.current');
 
         return ReactDOM.createPortal((
             <>
                 <div
                     ref={this.ref}
-                    className={`${style.dialog} ${actived ? style['z-actived'] : ''} ${className}  `}
+                    className={`${style[prefixCls]} ${actived ? style['z-actived'] : ''} ${className}  `}
                     id={this.id}
                     style={{
                         display: visible ? 'block' : 'none',
@@ -137,12 +165,12 @@ class Modal extends React.Component<DashboxProps, DashboxState> {
                     onClick={(e) => {
                         e.stopPropagation();
                     }}
-                    onMouseDown={(e) => {
+                    onMouseDown={() => {
                         // e.stopPropagation()
                         this.setModalToTop();
                         this.recordPrevZIndex();
                     }}
-                    onMouseUp={(e) => {
+                    onMouseUp={() => {
                         this.resetPrevZIndex();
                     }}
                 >
@@ -152,9 +180,7 @@ class Modal extends React.Component<DashboxProps, DashboxState> {
                             minWidth={minWidth}
                             dialogNode={this.ref.current}
                             prefixCls={prefixCls}
-                            onResize={onResize}
                             getResizeStartInitStyle={(dialogStyle) => {
-                                console.log(dialogStyle, 'dialogstyle');
                                 this.setState((prevState) => ({
                                     left: dialogStyle.left || prevState.left,
                                     right: dialogStyle.right || prevState.right,
@@ -164,17 +190,23 @@ class Modal extends React.Component<DashboxProps, DashboxState> {
                                     height: dialogStyle.height || prevState.height,
                                 }));
                             }}
-                            onResizeHeight={(height) => {
-                                console.log(height, 'height');
+                            onResizeHeight={(resizeHeight) => {
+                                console.log(resizeHeight, 'resizeHeight');
                                 this.setState({
-                                    height,
+                                    height: resizeHeight,
                                 });
                             }}
-                            onResizeWidth={(width) => {
-                                console.log(width, 'width');
+                            onResizeWidth={(resizeWidth) => {
+                                console.log(resizeWidth, 'resizeWidth');
                                 this.setState({
-                                    width,
+                                    width: resizeWidth,
                                 });
+                            }}
+                            onResize={() => {
+
+                            }}
+                            onResizeEnd={() => {
+
                             }}
                             getContainer={getContainer}
                         />
@@ -184,25 +216,21 @@ class Modal extends React.Component<DashboxProps, DashboxState> {
                             dialogNode={this.ref.current}
                             prefixCls={prefixCls}
                             onDrag={(dragStyle) => {
-                                this.setState((prevState) => ({
+                                this.setState({
                                     left: dragStyle.left,
                                     top: dragStyle.top,
                                     right: 'initial',
                                     bottom: 'initial',
-                                }));
+                                });
+                            }}
+                            onDragEnd={() => {
+                                this.onEnd();
+                                // debugger;
                             }}
                         />
 
-                        <div
-                            className={style['dialog-content']}
-                        >
-
-                            <div
-                                className={style.dialogBody}
-                            >
-                                {this.props.destroyOnClose && !this.props.visible ? '' : this.props.children}
-                            </div>
-
+                        <div className={style['dialog-body']}>
+                            {destroyOnClose && !visible ? '' : this.props.children}
                         </div>
                     </div>
 

@@ -78,12 +78,6 @@ class UMover extends React.Component {
                 right: 'initial',
                 bottom: 'initial',
             });
-            this.setState({
-                top,
-                right,
-                bottom: 'initial',
-                left: 'initial',
-            });
             // 执行拖拽后的回调函数
             if (DragCallBack && typeof DragCallBack === 'function') {
                 DragCallBack({
@@ -99,21 +93,22 @@ class UMover extends React.Component {
 
     startDrag(e, touch = false) {
         const { dialogNode } = this.props;
-        console.log(dialogNode, 'dialogNode');
-        const CSS = getComputedStyle(dialogNode);
-        this.moveOffset.x = -parseFloat(CSS.left || 0)
-            + (touch ? e.targetTouches[0].clientX : e.clientX)
-            - parseFloat(CSS.borderWidth || 0);
-        this.moveOffset.y = parseFloat(CSS.top || 0)
-            - (touch ? e.targetTouches[0].clientY : e.clientY)
-            - parseFloat(CSS.borderWidth || 0);
-        document.addEventListener('mousemove', this.internalDragHandler);
-        addUserSelectStyles(document);
+        if (dialogNode) {
+            const CSS = getComputedStyle(dialogNode);
+            this.moveOffset.x = -parseFloat(CSS.left || 0)
+                + (touch ? e.targetTouches[0].clientX : e.clientX)
+                - parseFloat(CSS.borderWidth || 0);
+            this.moveOffset.y = parseFloat(CSS.top || 0)
+                - (touch ? e.targetTouches[0].clientY : e.clientY)
+                - parseFloat(CSS.borderWidth || 0);
+            document.addEventListener('mousemove', this.internalDragHandler);
+            addUserSelectStyles(document);
+        }
     }
 
     render() {
         const {
-            minHeight, minWidth, actived, prefixCls,
+            minHeight, minWidth, actived, prefixCls, onDragEnd,
         } = this.props;
 
         return (
@@ -129,6 +124,7 @@ class UMover extends React.Component {
                     // document.removeEventListener('mousemove', this.dragHeadHandler)
                     document.removeEventListener('mousemove', this.internalDragHandler);
                     removeUserSelectStyles(document);
+                    onDragEnd?.();
                     this.dragHeader = false;
                 }}
             />
