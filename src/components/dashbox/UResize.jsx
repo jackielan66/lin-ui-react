@@ -267,6 +267,7 @@ class UResize extends React.Component {
         // debugger
         this.dragResizer = '';
         removeUserSelectStyles(document);
+        this.props.onResizeEnd?.();
         document.removeEventListener('mousemove', this.resizeMoveHandler);
         document.removeEventListener('mouseup', this.resizeEndHandler);
     }

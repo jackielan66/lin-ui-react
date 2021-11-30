@@ -60,6 +60,8 @@ interface DashboxProps {
     /**
      * 结束鼠标点击事件,返回各种信息回去
      */
+    onClick?: (id: string | number) => void;
+
     onMouseUp: (any) => void
 }
 

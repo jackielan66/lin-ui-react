@@ -12,6 +12,7 @@ import Modal from './Modal/Modal-internal';
 import Message from './Message/Message-internal';
 // console.log(Badge, 'Badge');
 // import CSSMotion from './CSSMotion';
+import { Collapse } from './Collapse/index';
 
 export {
     Button,
@@ -25,6 +26,7 @@ export {
     Image,
     Modal,
     Message,
+    Collapse,
     // CSSMotion,
     // Badge,
 };

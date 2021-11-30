@@ -46,8 +46,11 @@ class Modal extends React.Component<DashboxProps, DashboxState> {
             right: '',
             width: `${props.width}px` || `${props.minWidth}px`,
             height: `${props.height}px` || `${props.minHeight}px`,
-            zIndex: props.zIndex || zIndexStore.addZIndex(this.id),
+            zIndex: props.zIndex, // || zIndexStore.addZIndex(this.id),
         };
+
+        zIndexStore.setData(this.id, props.zIndex);
+        zIndexStore.setMax(props.zIndex);
     }
 
     componentDidMount() {
@@ -91,7 +94,7 @@ class Modal extends React.Component<DashboxProps, DashboxState> {
         //   zIndex: zIndexStore.addZIndex(this.id),
         // })
 
-        const maxZIndex = zIndexStore.getMax(this.id);
+        const maxZIndex = zIndexStore.getMax();
         this.setState({
             zIndex: maxZIndex + 1,
         });
@@ -99,6 +102,7 @@ class Modal extends React.Component<DashboxProps, DashboxState> {
 
     recordPrevZIndex = () => {
         this.prevZIndex = zIndexStore.getZIndex(this.id);
+        // debugger;
     }
 
     // 重置样式到上一层
@@ -163,6 +167,7 @@ class Modal extends React.Component<DashboxProps, DashboxState> {
                     }}
                     role="presentation"
                     onClick={(e) => {
+                        this.props.onClick?.(this.id);
                         e.stopPropagation();
                     }}
                     onMouseDown={() => {
@@ -206,7 +211,7 @@ class Modal extends React.Component<DashboxProps, DashboxState> {
 
                             }}
                             onResizeEnd={() => {
-
+                                this.onEnd();
                             }}
                             getContainer={getContainer}
                         />

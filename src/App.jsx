@@ -6,22 +6,10 @@ import React, {
 } from 'react';
 
 import {
-    Input, Tabs, Tag, Icon, Image, Modal, Message,
+    Input, Tabs, Tag, Icon, Image, Modal, Message, Collapse,
 } from './components';
-import Button from './components/Button/Button';
-import Divider from './components/Divider/Divider';
-// import './App.less'
-// import Picker from './components/Picker/index'
-// import Icon from './components/Icon/Icon';
-import { Title } from './components/Typography';
-import logo from './logo.svg';
-import TestCom from './_Test';
 
-import Notification from './components/notification';
-import Dashbox from './components/dashbox';
-
-const { CheckableTag } = Tag;
-const { TextArea } = Input;
+const { Panel } = Collapse;
 
 const usePrevious = (state) => {
     const ref = useRef();
@@ -87,200 +75,23 @@ const Test = () => {
 };
 
 function App() {
-    const [count, setCount] = useState(11);
-    const [selectedTags, setSelectedTags] = useState([]);
-    const [isModalVisible, setIsModalVisible] = useState(false);
     const callback = () => {
 
     };
-    // const singleInstance = null;
-    const showModal = () => {
-        // Message.newInstance({}, (notification) => {
-        //     notification.destroy();
-        // });
-
-        Message.info('测试测试');
-        // debugger;
-        // Message.info('This is a normal message');
-        // setIsModalVisible(true);
-
-        // if (!singleInstance) {
-
-        // }
-
-        // if (singleInstance) {
-        //     singleInstance.notice({
-        //         content: 'content',
-        //     });
-        // }
-
-        // Notification.newInstance({}, (notification) => {
-        //     notification.notice({
-        //         content: 'content',
-        //     });
-        // });
-    };
-
-    const handleOk = () => {
-        setIsModalVisible(false);
-    };
-
-    const handleCancel = () => {
-        setIsModalVisible(false);
-    };
-
-    const handleChange = (tag, checked) => {
-        const nextSelectedTags = checked ? [...selectedTags, tag] : selectedTags.filter((t) => t !== tag);
-        setSelectedTags(nextSelectedTags);
-    };
-
-    const tagsData = ['Movies', 'Books', 'Music', 'Sports'];
-
-    const handleClickIcon = () => {
-        // alert(this);
-    };
-
-    // console.log(isModalVisible, 'isModalVisible');
-    const boxArray = [{
-        id: 1,
-        x: 20,
-        y: -50,
-        zIndex: 2,
-        width: 350,
-        height: 200
-    },
-    {
-        id: 2,
-        x: -20,
-        y: -50,
-        zIndex: 2,
-        width: 350,
-        height: 20,
-    }
-    ];
 
     return (
         <div type="" className="App">
-            {
-                boxArray.map((item, index) => (
-                    <Dashbox key={item.id} id={item.id} visible
-                        onMouseUp={(params) => {
-                            console.log(params, 'params')
-                        }}
-                        actived width={item.width} height={item.height} x={item.x} y={item.y}  >
-                        {item.id}
-                        modal
-                    </Dashbox>
-                ))
-            }
-            {/* <TestCom />
-            <Button type="primary" onClick={showModal}>
-                Open Modal
-            </Button> */}
-
-            {/* <Modal
-                title="Basic Modal"
-                width="800px"
-                visible={isModalVisible}
-                onOk={handleOk}
-                onCancel={handleCancel}
-                bodyStyle={{
-                    padding: 0,
-                }}
-            // getContainer={() => document.getElementById('root')}
-            >
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                3121
-                323
-                dialog content
-            </Modal> */}
-            <Icon className="test" size="22" onClick={handleClickIcon} type="arrow-down-bold" />
-            <Tag color="magenta" closable> 323</Tag>
-            <Tag color="magenta"> 432423 </Tag>
-            <Tag color="#f50"> 432423 </Tag>
-            <Tag color="red">red</Tag>
-            <div />
-            <span style={{ marginRight: 8 }}>Categories:</span>
-            {tagsData.map((tag) => (
-                <CheckableTag
-                    key={tag}
-                    checked={selectedTags.indexOf(tag) > -1}
-                    onChange={(checked) => handleChange(tag, checked)}
-                >
-                    {tag}
-                </CheckableTag>
-            ))}
-            {/* <Image
-                width={200}
-                placeholder={(
-                    <Image
-                        preview={false}
-                        src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
-                        width={200}
-                    />
-                )}
-                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-            />
-            <Image
-                width={200}
-                src="error
-                "
-            /> */}
-            {/* <Badge dot>
-                <a href="#">Link something</a>
-            </Badge> */}
-            {/* <Tabs defaultActiveKey="1" onChange={callback}>
-                <Tabs.TabPane tab="Tab 1" key="1">
-                    Content of Tab Pane 1
-                </Tabs.TabPane>
-                <Tabs.TabPane tab="Tab 2" key="2">
-                    Content of Tab Pane 2
-                </Tabs.TabPane>
-            </Tabs>
-            <Title>中国人</Title>
-            <Divider style={{ marginTop: 5, marginBottom: 5 }} orientation="left">
-                中国人左边
-            </Divider>
-            <span>
-                请输入数字
-                {count}
-                {' '}
-            </span>
-            <Input value={count} onChange={setCount} /> */}
-            {/* <Input type="password" value={count} />
-            <div>
-                <Input addonBefore="http://" addonAfter=".com" defaultValue="mysite" />
-            </div>
-
-            <div />
-            <input />
-            <Icon size="18" type="arrow-down-bold" />
-            <Icon size="18" type="arrow-left-bold" /> */}
-            {/* <Button
-                type="primary"
-                onClick={() => {
-                    console.log(' antd button');
-                    setCount(count + 1);
-                }}
-            >
-                按钮
-
-            </Button>
-            <TextArea placeholder="请输入介绍" value={count} onChange={setCount} /> */}
-            <Test />
-
-            <header className="App-header">
-                <p>Hello Vite + React!</p>
-                <p>
-                    <button type="button" onClick={() => setCount((count) => count + 1)}>
-                        count is:
-                        {' '}
-                        {count}
-                    </button>
-                </p>
-            </header>
+            <Collapse accordion onChange={callback}>
+                <Panel header="This is panel header 1" key="1">
+                    <p>1111</p>
+                </Panel>
+                <Panel header="This is panel header 2" key="2">
+                    <p>13123</p>
+                </Panel>
+                <Panel header="This is panel header 3" key="3">
+                    <p>43434</p>
+                </Panel>
+            </Collapse>
         </div>
     );
 }

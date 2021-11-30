@@ -46,7 +46,7 @@ export function getTransformPos(position = { x: 0, y: 0 }, container: HTMLElemen
  * 把style转换成 x y 模式 给外部接口
  */
 export function getStyle(container: HTMLElement, parentContainer: HTMLElement) {
-    console.log(container, 'container');
+    // console.log(container, 'container');
     // console.log(parentcontainer, 'parentcontainer');
     const result = {
         x: 0,
@@ -74,7 +74,13 @@ export function getStyle(container: HTMLElement, parentContainer: HTMLElement) {
     } else {
         result.x = parseInt(left, 10);
     }
-    if (left) { console.log(result, 'result'); }
 
+    if ((parseInt(top, 10) + result.height / 2) > parseInt(pHeight) / 2) {
+        result.y = -parseInt(bottom, 10);
+    } else {
+        result.y = parseInt(top, 10);
+    }
+    // if (left) { console.log(result, 'result'); }
+    console.log(result, 'result');
     return result;
 }
