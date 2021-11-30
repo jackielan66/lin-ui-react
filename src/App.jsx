@@ -2,7 +2,7 @@ import './components/style/default.less';
 
 import guid from 'rc-util/lib/guid';
 import React, {
-    createRef, useEffect, useRef, useState,
+    createRef, useEffect, useRef, useState, createContext, useContext,
 } from 'react';
 
 import {
@@ -24,6 +24,19 @@ const usePrevious = (state) => {
 };
 
 let prevUseRefIntance = null;
+
+const themes = {
+    light: {
+        foreground: '#000000',
+        background: '#eeeeee',
+    },
+    dark: {
+        foreground: '#ffffff',
+        background: '#222222',
+    },
+};
+
+const ThemeContext = React.createContext(themes.light);
 
 const Test = () => {
     const [renderIndex, setRenderIndex] = React.useState(0);
@@ -81,7 +94,7 @@ function App() {
 
     return (
         <div type="" className="App">
-            <Collapse accordion onChange={callback}>
+            <Collapse onChange={callback}>
                 <Panel header="This is panel header 1" key="1">
                     <p>1111</p>
                 </Panel>

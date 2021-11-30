@@ -1,5 +1,7 @@
+import Collapse from './Collapse';
 import InternalCollapse from './InternalCollapse';
 
 export {
-    InternalCollapse as Collapse,
+    Collapse,
+    InternalCollapse,
 };

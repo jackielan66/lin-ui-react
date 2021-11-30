@@ -32,31 +32,30 @@ const InternalCollapse = ({
 
     // console.log(internalActiveKey, 'internalActiveKey item.props');
 
-    const getItems = () => toArray(children).map((item) => {
-        console.log(item.props, 'item.props');
-        return (
-            <InternalPanel
-                key={item.key}
-                {...item.props}
-                onClick={(event) => {
-                    // console.log(event, 'event');
-                    if (accordion) {
-                        setInternalActiveKey(isExpand(item.key) ? [] : [item.key]);
-                        return;
-                    }
-                    if (isExpand(item.key)) {
-                        const newsActiveKeys = internalActiveKey.filter((key) => key !== item.key);
-                        setInternalActiveKey(newsActiveKeys);
-                    } else {
-                        setInternalActiveKey([...internalActiveKey, item.key]);
-                    }
-                }}
-            >
-                <div hidden={!isExpand(item.key)}>
-                    {item.props.children}
-                </div>
-            </InternalPanel>
-        );
+    const onClickItem = (item) => {
+        if (accordion) {
+            setInternalActiveKey(isExpand(item.key) ? [] : [item.key]);
+            return;
+        }
+        if (isExpand(item.key)) {
+            const newsActiveKeys = internalActiveKey.filter((key) => key !== item.key);
+            setInternalActiveKey(newsActiveKeys);
+        } else {
+            setInternalActiveKey([...internalActiveKey, item.key]);
+        }
+    };
+
+    const getItems = () => toArray(children).map((item: React.ReactElement) => {
+        // console.log(item.props, 'item.props');
+        const internalProps = {
+            key: item.key,
+            onClick: () => {
+                // console.log('item onclick InternalCollapse');
+                onClickItem(item);
+            },
+            isActive: isExpand(item.key),
+        };
+        return React.cloneElement(item, internalProps);
     });
 
     return (
