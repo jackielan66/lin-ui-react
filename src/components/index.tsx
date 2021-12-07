@@ -13,6 +13,7 @@ import Message from './Message/Message-internal';
 // console.log(Badge, 'Badge');
 // import CSSMotion from './CSSMotion';
 import { InternalCollapse as Collapse } from './Collapse/index';
+import { InternalSwitch as Switch } from './Switch/index';
 
 export {
     Button,
@@ -27,6 +28,7 @@ export {
     Modal,
     Message,
     Collapse,
+    Switch,
     // CSSMotion,
     // Badge,
 };

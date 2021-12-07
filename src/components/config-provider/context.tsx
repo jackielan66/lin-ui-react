@@ -45,3 +45,5 @@ export const ConfigContext = React.createContext<ConfigConsumerProps>({
 
     // renderEmpty: defaultRenderEmpty,
 });
+
+export const ConfigConsumer = ConfigContext.Consumer;

@@ -64,7 +64,9 @@ module.exports = {
                 loader: ['style-loader', {
                     loader: 'css-loader',
                     options: {
-                        modules: true,
+                        modules: {
+                            auto: /\.module\.\w+/i,
+                        },
                     },
                 }, 'less-loader'],
             },

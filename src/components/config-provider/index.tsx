@@ -1,15 +1,18 @@
 import * as React from 'react';
 
 import {
-    // ConfigConsumer,
+    ConfigConsumer,
     ConfigContext,
     CSPConfig,
     DirectionType,
-    // ConfigConsumerProps,
+    ConfigConsumerProps,
 } from './context';
 
 export {
     ConfigContext,
+    CSPConfig,
+    ConfigConsumer,
+    ConfigConsumerProps,
 };
 
 export interface ConfigProviderProps {

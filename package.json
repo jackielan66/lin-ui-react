@@ -10,6 +10,7 @@
         "svgo": "svgo -f src/components/icon/svg --config=src/components/icon/svgo.yml"
     },
     "dependencies": {
+        "@types/classnames": "^2.3.1",
         "classnames": "^2.3.1",
         "lodash": "^4.17.21",
         "rc-dialog": "~8.6.0",
@@ -23,11 +24,11 @@
         "@babel/core": "^7.15.0",
         "@babel/preset-env": "^7.15.0",
         "@babel/preset-react": "^7.14.5",
+        "@types/lodash": "^4.14.176",
         "@types/node": "^16.9.1",
         "@types/prop-types": "^15.7.4",
         "@types/react": "^17.0.20",
         "@types/react-dom": "^17.0.9",
-        "@types/lodash": "^4.14.176",
         "@types/webpack-env": "^1.16.2",
         "@typescript-eslint/eslint-plugin": "^4.31.1",
         "@typescript-eslint/parser": "^4.31.1",

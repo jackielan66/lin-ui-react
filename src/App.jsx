@@ -1,4 +1,4 @@
-import './components/style/default.less';
+// import './components/style/default.less';
 
 import guid from 'rc-util/lib/guid';
 import React, {
@@ -6,7 +6,7 @@ import React, {
 } from 'react';
 
 import {
-    Input, Tabs, Tag, Icon, Image, Modal, Message, Collapse,
+    Input, Tabs, Tag, Icon, Image, Modal, Message, Collapse, Switch, Button,
 } from './components';
 
 const { Panel } = Collapse;
@@ -38,7 +38,7 @@ const themes = {
 
 const ThemeContext = React.createContext(themes.light);
 
-const Test = () => {
+const Test = function () {
     const [renderIndex, setRenderIndex] = React.useState(0);
     const refFromUseRef = useRef(guid());
     const refFromCreateRef = createRef();
@@ -87,13 +87,25 @@ const Test = () => {
     );
 };
 
-function App() {
+const App = () => {
     const callback = () => {
 
     };
 
+    const [checked, setChecked] = React.useState(false);
+
     return (
         <div type="" className="App">
+            {/* <Button> 按钮</Button> */}
+            <Switch />
+            <Switch
+                checked={checked}
+                disabled
+                onChange={(_checked) => {
+                    setChecked(_checked);
+                }}
+            />
+
             <Collapse onChange={callback}>
                 <Panel header="This is panel header 1" key="1">
                     <p>1111</p>
@@ -107,6 +119,6 @@ function App() {
             </Collapse>
         </div>
     );
-}
+};
 
 export default App;
