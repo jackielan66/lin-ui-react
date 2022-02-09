@@ -12,7 +12,7 @@ module.exports = {
     // 模块解析额外配置
     resolve: {
         alias: {
-            Components: path.resolve(__dirname, 'src/components/'),
+            '@Components': path.resolve(__dirname, 'src/components/'),
         },
         extensions: ['.jsx', '.js', '.ts', '.tsx'],
     },

@@ -7,7 +7,7 @@ import React, {
 
 import {
     Input, Tabs, Tag, Icon, Image, Modal, Message, Collapse, Switch, Button,
-} from './components';
+} from '@Components';
 
 const { Panel } = Collapse;
 
@@ -96,7 +96,7 @@ const App = () => {
 
     return (
         <div type="" className="App">
-            {/* <Button> 按钮</Button> */}
+            <Button type="primary"> 按钮</Button>
             <Switch />
             <Switch
                 checked={checked}
